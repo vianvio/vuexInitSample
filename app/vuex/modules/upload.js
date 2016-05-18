@@ -1,5 +1,4 @@
 import {
-  INIT_UPLOAD_STATE,
   SET_UPLOAD_FILE_INFO_LIST,
   SET_UPLOAD_LOADING_FLAG,
   SET_UPLOAD_PROGRESS,
@@ -22,9 +21,6 @@ const state = {
 
 // mutations
 const mutations = {
-  [INIT_UPLOAD_STATE](currentState) { 
-    currentState = { ...state }
-  },
   [SET_UPLOAD_FILE_INFO_LIST](state, {datafile}) { 
     state.dataFileInfo = datafile 
   },

@@ -21,7 +21,7 @@ export const loginAction = ({ dispatch, router }, loginObj) => {
 }
 
 export const initUpload = ({ dispatch }) => {
-  dispatch(types.INIT_TEST, 'upload')
+  dispatch(types.INIT_STATE, 'upload')
 }
 
 export const updateUploadList = ({ dispatch }, fileInfoObject) => {
