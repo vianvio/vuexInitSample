@@ -43,5 +43,15 @@ sync(store, router)
 router.start(App, 'body')
 
 Vue.config.debug = true
-// use wiki app's token for test
-Vue.http.headers.common['Authorization'] = 'Basic V0lLSUFQUDowODcxNDJhYzY4NGY0ZTc4YmI0ZTQ2NTFlN2M4NGY2Yg=='
+
+Vue.http.interceptors.push({
+  request: function(request) {
+    return request
+  },
+  response: function(response) {
+    if (response.status === 401) {
+      router.go('/login')
+    }
+    return response
+  }
+});

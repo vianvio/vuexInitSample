@@ -25,14 +25,14 @@ export const updateUploadList = ({ dispatch }, fileInfoObject) => {
   dispatch(types.SET_UPLOAD_FILE_INFO_LIST, fileInfoObject)
 }
 
-export const uploadFile = ({ dispatch }, { datafile }, { filename, type }) => {
+export const uploadFile = ({ dispatch }, { datafile }, { recordId, type }) => {
   dispatch(types.SET_UPLOAD_LOADING_FLAG, true)
 
   // create form data
   let formData = new FormData()
   formData.append("files", datafile)
 
-  formData.append("filename", filename)
+  formData.append("recordId", recordId)
   formData.append("type", type)
 
   Vue.http.headers.common['Content-Type'] = 'multipart/form-data'
@@ -57,6 +57,6 @@ export const uploadFile = ({ dispatch }, { datafile }, { filename, type }) => {
     Vue.http.headers.common['Content-Type'] = 'application/json'
     dispatch(types.SET_UPLOAD_LOADING_FLAG, false)
     dispatch(types.SET_UPLOAD_PROGRESS, 0)
-    dispatch(types.SET_RESULT_MESSAGE, 'errorMessage', err.data.message)
+    dispatch(types.SET_RESULT_MESSAGE, 'errorMessage', err.data.error.message)
   })
 }

@@ -1,9 +1,10 @@
 <template>
 	<div class='upload-holder container-fluid'>
+		<h6 class='required' v-show='bShowInstruction'>Required Fields</h6>
 		<div class='col-xs-6'>
 			<div class='form-group'>
-				<label for='filename'>Filename</label>
-				<input type='text' id='filename' class='form-control' v-model='uploadForm.filename' />
+				<label for='recordId'>Record Id</label>
+				<input type='text' id='recordId' class='form-control' v-model='uploadForm.recordId' />
 			</div>
 			<div class='form-group'>
 				<label for='type'>Type</label>
@@ -70,7 +71,7 @@ export default {
 	data() {
 	  return {
 	  	uploadForm: {
-			filename: '',
+			recordId: '',
 			type: '',
 			file: ''
 		},
@@ -89,7 +90,7 @@ export default {
 			})
 		},
 		upload(index){
-			if (!this.$data.uploadForm.filename || !this.$data.uploadForm.type) {
+			if (!this.$data.uploadForm.recordId || !this.$data.uploadForm.type) {
 				this.$data.bShowInstruction = true;
 			}else {
 				this.$data.bShowInstruction = false;
