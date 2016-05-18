@@ -30,7 +30,7 @@ export const uploadFile = ({ dispatch }, { datafile }, { filename, type }) => {
 
   // create form data
   let formData = new FormData()
-  formData.append("datafile", datafile)
+  formData.append("files", datafile)
 
   formData.append("filename", filename)
   formData.append("type", type)
