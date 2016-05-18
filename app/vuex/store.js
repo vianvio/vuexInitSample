@@ -10,7 +10,13 @@ const debug = process.env.NODE_ENV !== 'production'
 
 Vue.use(Vuex)
 Vue.config.debug = debug
-Vue.config.warnExpressionErrors = false
+Vue.config.warnExpressionErrors = debug
+
+const mutations = {
+  INIT_TEST (state, moduleName) {
+    state[moduleName] = { ...module.exports.default._modules[moduleName].state }
+  }
+}
 
 export default new Vuex.Store({
   modules: {
@@ -19,6 +25,9 @@ export default new Vuex.Store({
     login,
     upload
   },
+  mutations,
   strict: debug,
   middlewares
 })
+
+// console.log(module.exports.default._modules)

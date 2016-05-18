@@ -46,6 +46,7 @@ Vue.config.debug = true
 
 Vue.http.interceptors.push({
   request: function(request) {
+  	Vue.http.headers.common['Authorization'] = sessionStorage.getItem('token')
     return request
   },
   response: function(response) {

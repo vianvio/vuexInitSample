@@ -10,7 +10,6 @@ export const loginAction = ({ dispatch, router }, loginObj) => {
     // loginObj.pwd = window.btoa(loginObj.pwd)
   Vue.http.post('/api/userModels/login', loginObj).then(function(resp) {
     dispatch(types.SET_LOGIN_LOADING_FLAG, false)
-    Vue.http.headers.common['Authorization'] = resp.data.id;
     sessionStorage.clear();
     sessionStorage.setItem('token', resp.data.id);
     sessionStorage.setItem('userId', resp.data.userId);
@@ -19,6 +18,10 @@ export const loginAction = ({ dispatch, router }, loginObj) => {
   }, function(err) {
     dispatch(types.SET_LOGIN_LOADING_FLAG, false)
   })
+}
+
+export const initUpload = ({ dispatch }) => {
+  dispatch(types.INIT_TEST, 'upload')
 }
 
 export const updateUploadList = ({ dispatch }, fileInfoObject) => {

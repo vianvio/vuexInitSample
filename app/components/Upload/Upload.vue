@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { updateUploadList, uploadFile } from '../../vuex/action.js'
+import { updateUploadList, uploadFile, initUpload } from '../../vuex/action.js'
 import {select as vSelect, option as vOption, progressbar, alert} from 'vue-strap'
 
 export default {
@@ -59,7 +59,8 @@ export default {
       },
       actions:{
         updateUploadList,
-        uploadFile
+        uploadFile,
+        initUpload,
       }
     },
 	components: {
@@ -110,6 +111,9 @@ export default {
                 return (size / 1024).toFixed(2) + ' KB';
             }
 		}
+	},
+	route: {
+		data() { this.initUpload() }
 	}
 }
 </script>
