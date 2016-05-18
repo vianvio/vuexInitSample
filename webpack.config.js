@@ -81,7 +81,7 @@ module.exports = {
 if (process.env.NODE_ENV === 'production') {
   module.exports.output = {
     path: PRD_BUILD_PATH,
-    publicPath: '', // force http:// to solve bootstrap font's "OTS parsing error: invalid version tag" error
+    publicPath: '',
     filename: '[name].js'
   };
   module.exports.vue = {

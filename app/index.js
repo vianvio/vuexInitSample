@@ -36,7 +36,7 @@ router.beforeEach(function() {
 })
 
 router.redirect({
-  '*': '/tree'
+  '*': '/upload'
 })
 
 sync(store, router)
