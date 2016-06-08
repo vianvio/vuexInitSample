@@ -47,6 +47,14 @@ $prefix-for-spec: true !default;
   @include prefixer(border-radius, $width, webkit moz o ms spec);
 }
 
+@mixin animation($property...) {
+  @include prefixer(animation, $property, webkit moz o ms spec);
+}
+
+@mixin transform-origin($property...) {
+  @include prefixer(transform-origin, $property, webkit moz o ms spec);
+}
+
 @mixin screen-center($selfWidth, $selfHeight, $horizontalOffset, $verticalOffset) {
   @include vertical-center($selfHeight, $verticalOffset);
   @include horizontal-center($selfWidth, $horizontalOffset);

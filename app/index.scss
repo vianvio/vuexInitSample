@@ -95,6 +95,40 @@ a:focus {
   }
 }
 
+label {
+  .cssload-ball.cssload-ball-small {
+    border-color: $basic-blue;
+    position: static; // overwrite default
+    left: 0;// overwrite default
+    height: 2rem;
+    width: 2rem;
+    border-radius: 2rem;
+    float: right;
+    margin-left: 1rem;
+    &:after {
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $basic-blue;
+    }
+  }
+}
+
+.cssload-ball.cssload-ball-small {
+  border-color: $white;
+  position: static; // overwrite default
+  left: 0; // overwrite default
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+  float: left;
+  margin-right: 1rem;
+  &:after {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: $white;
+  }
+}
+
 // loader start
 .cssload-ball {
   position: relative;
@@ -104,16 +138,8 @@ a:focus {
   border: 1px solid $white;
   left: 35%;
   left: calc(50% - 18px);
-  transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
-  -ms-transform-origin: 50% 50%;
-  -webkit-transform-origin: 50% 50%;
-  -moz-transform-origin: 50% 50%;
-  animation: cssload-ball 2.25s linear infinite;
-  -o-animation: cssload-ball 2.25s linear infinite;
-  -ms-animation: cssload-ball 2.25s linear infinite;
-  -webkit-animation: cssload-ball 2.25s linear infinite;
-  -moz-animation: cssload-ball 2.25s linear infinite;
+  @include transform-origin(50% 50%);
+  @include animation(cssload-ball 2.25s linear infinite);
 }
 
 .cssload-ball:after {
@@ -129,46 +155,10 @@ a:focus {
 
 @keyframes cssload-ball {
   0% {
-    transform: rotate(0deg);
+    @include transform(rotate(0deg));
   }
   100% {
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes cssload-ball {
-  0% {
-    -o-transform: rotate(0deg);
-  }
-  100% {
-    -o-transform: rotate(360deg);
-  }
-}
-
-@-ms-keyframes cssload-ball {
-  0% {
-    -ms-transform: rotate(0deg);
-  }
-  100% {
-    -ms-transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes cssload-ball {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes cssload-ball {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
+    @include transform(rotate(360deg));
   }
 }
 
