@@ -6,12 +6,12 @@
 				<label for='recordId'>Record Id</label>
 				<input type='text' id='recordId' class='form-control' v-model='uploadForm.recordId' />
 			</div>
-			<div class='form-group'>
+			<!-- <div class='form-group'>
 				<label for='type'>Type</label>
 				<v-select class='form-select' id='type' :value.sync='uploadForm.type'>
 					<v-option value='Type 1'>Type 1</v-option>
 				</v-select>
-			</div>
+			</div> -->
 		</div>
 		<div class='col-xs-6'>
 			<input type='file' id='dataUploader' class='data-file-uploader' accept='*' @change='uploaderChange' />
@@ -21,12 +21,12 @@
 	        </button>
 			<hr v-show='uploadForm.file' />
 			<div v-show='uploadForm.file'>
-				<alert type="success" v-if='successMessage'>
+				<!-- <alert type="success" v-if='successMessage'>
 				    {{successMessage}}
 				</alert>
 				<alert type="danger" v-if='errorMessage'>
 				    {{errorMessage}}
-				</alert>
+				</alert> -->
 				<div class='row file-name-info form-group'>
 					<div class='col-xs-12 file-type-title'>
 						Data File : 
@@ -37,7 +37,7 @@
 			    </div>
 			    <div class='form-group'>Progress : </div>
 			    <div class='progress-bar-holder'>
-		        	<progressbar :now="percentage" label type="primary" striped animated></progressbar>
+		        	<!-- <progressbar :now="percentage" label type="primary" striped animated></progressbar> -->
 		        </div>
 		    </div>
 		</div>
@@ -46,7 +46,7 @@
 
 <script>
 import { updateUploadList, uploadFile, initUpload } from '../../vuex/action.js'
-import {select as vSelect, option as vOption, progressbar, alert} from 'vue-strap'
+// import {select as vSelect, option as vOption, progressbar, alert} from 'vue-strap'
 
 export default {
 	vuex:{
@@ -64,10 +64,10 @@ export default {
       }
     },
 	components: {
-		vSelect,
-		vOption,
-		progressbar,
-		alert
+		// vSelect,
+		// vOption,
+		// progressbar,
+		// alert
 	},
 	data() {
 	  return {
