@@ -12,6 +12,7 @@ Vue.use(VueValidator)
 import App from './components/App.vue'
 import Login from './components/Login/Login.vue'
 import Dashboard from './components/Dashboard/Dashboard.vue'
+import Counter from './components/Counter/Counter.vue'
 // model
 import store from './vuex/store.js'
 
@@ -24,6 +25,9 @@ router.map({
   },
   '/dashboard': {
     component: Dashboard
+  },
+  '/counter': {
+    component: Counter
   }
 })
 

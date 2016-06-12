@@ -3,16 +3,15 @@
   </div>
 </template>
 <script>
-import {
-  initComponent
-} from '../../vuex/action.js'
+import { initComponent } from '../../vuex/action.js'
+
 export default {
   vuex: {
     getters: {
 
     },
     actions: {
-
+      initComponent
     }
   },
   components: {
