@@ -7,21 +7,18 @@ export const setLoginFlag = ({ dispatch }, flag) => {
 
 export const loginAction = ({ dispatch, router }, loginObj) => {
   dispatch(types.SET_LOGIN_LOADING_FLAG, true)
-    // loginObj.pwd = window.btoa(loginObj.pwd)
-  Vue.http.post('/api/userModels/login', loginObj).then(function(resp) {
+  Vue.http.post('/api-token-auth/', loginObj).then(function(resp) {
     dispatch(types.SET_LOGIN_LOADING_FLAG, false)
     sessionStorage.clear();
-    sessionStorage.setItem('token', resp.data.id);
-    sessionStorage.setItem('userId', resp.data.userId);
-    sessionStorage.setItem('userName', resp.data.userName);
-    router.go('/upload')
+    sessionStorage.setItem('token', resp.data.token);
+    router.go('/dashboard')
   }, function(err) {
     dispatch(types.SET_LOGIN_LOADING_FLAG, false)
   })
 }
 
-export const initUpload = ({ dispatch }) => {
-  dispatch(types.INIT_STATE, 'upload')
+export const initComponent = ({ dispatch }, name) => {
+  dispatch(types.INIT_STATE, name)
 }
 
 export const updateUploadList = ({ dispatch }, fileInfoObject) => {

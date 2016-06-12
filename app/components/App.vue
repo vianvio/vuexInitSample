@@ -1,11 +1,9 @@
 <template>
-	<!-- <div class='page-loading' v-show='appModel.bLoading'>
+	<div class='page-loading' v-show='bLoading'>
         <div class='cssload-ball'></div>
-    </div> -->
+    </div>
 	<navbar></navbar>
-	<div class='content-holder'>
-		<router-view></router-view>
-	</div>
+	<router-view></router-view>
 </template>
 
 <script>
@@ -15,8 +13,15 @@ import store from '../vuex/store.js'
 
 export default {
 	store,
+	vuex:{
+      getters:{
+      	bLoading: ({ app }) => app.bLoading,
+      },
+      actions:{
+      }
+    },
 	components: {
-		navbar
+		navbar,
 	},
 	data() {
 		return {
@@ -33,9 +38,5 @@ export default {
 @import '../common.scss';
 @import '../index.scss';
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-
-.content-holder {
-	margin-top: 1rem;
-}
 
 </style>

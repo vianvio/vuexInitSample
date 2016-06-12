@@ -5,7 +5,7 @@ import * as type from './mutation-types'
 import app from './modules/app'
 import nav from './modules/nav'
 import login from './modules/login'
-import upload from './modules/upload'
+import dashboard from './modules/dashboard'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -24,7 +24,7 @@ export default new Vuex.Store({
     app,
     nav,
     login,
-    upload
+    dashboard
   },
   mutations,
   strict: debug,

@@ -30,8 +30,8 @@ module.exports = {
     progress: true,
     // make api call redirect to other server
     proxy: {
-      "/api/*": "http://localhost:3000",
-      // '/file-upload-service/*': 'http://172.31.215.39:8080'
+      "/api/*": "http://localhost:8000",
+      "/api-token-auth/": "http://localhost:8000",
     }
   },
   devtool: 'eval-source-map',

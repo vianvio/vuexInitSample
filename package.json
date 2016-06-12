@@ -1,13 +1,13 @@
 {
-  "name": "UISamples",
+  "name": "BabyMoveCounter",
   "version": "0.1.0",
-  "description": "UI samples build with Vue.js",
+  "description": "A web app to count and record baby move build with Vue.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -r ./build/* && rm ./index.html",
     "prestart": "NODE_ENV=development webpack",
-    "start": "webpack-dev-server --hot --inline --quiet",
+    "dev": "webpack-dev-server --hot --inline --quiet",
     "deploy": "NODE_ENV=production webpack"
   },
   "author": "Vian",
@@ -25,16 +25,10 @@
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
-    "gulp": "^3.9.1",
     "html-webpack-plugin": "^1.7.0",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
     "node-sass": "^3.4.2",
-    "rollup": "^0.31.0",
-    "rollup-plugin-babel": "^2.5.1",
-    "rollup-plugin-commonjs": "^3.0.0",
-    "rollup-plugin-node-resolve": "^1.7.0",
-    "rollup-plugin-vue": "^2.0.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
@@ -59,7 +53,6 @@
     "vue-router": "^0.7.7",
     "vue-strap": "^1.0.7",
     "vuex": "^0.6.2",
-    "vuex-router-sync": "^1.0.0",
-    "webpack-dev-server": "^1.14.1"
+    "vuex-router-sync": "^1.0.0"
   }
 }

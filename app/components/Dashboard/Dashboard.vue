@@ -1,11 +1,11 @@
 <template>
-	<div class='tree-list-holder container-fluid'>
+	<div class='dashboard-holder container-fluid'>
 		
 	</div>
 </template>
 
 <script>
-
+import { initComponent } from '../../vuex/action.js'
 export default {
 	vuex:{
       getters:{
@@ -20,15 +20,7 @@ export default {
 	},
 	data() {
 	  return {
-	  	uploadForm: {
-			filename: '',
-			location: '',
-			delimeter: '',
-			enclosure: '',
-			metadata: '',
-			file: ''
-		},
-		bShowInstruction: false
+	  	
 	  }
 	},
 	methods: {
@@ -36,6 +28,9 @@ export default {
 	},
 	filters: {
 		
+	},
+	route: {
+		data() { this.initComponent('dashboard') }
 	}
 }
 </script>
@@ -44,7 +39,7 @@ export default {
 @import '../../variables.scss';
 @import '../../common.scss';
 
-.tree-list-holder {
+.dashboard-holder {
 
 }
 </style>

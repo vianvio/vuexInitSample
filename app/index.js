@@ -11,8 +11,7 @@ Vue.use(VueValidator)
 // components
 import App from './components/App.vue'
 import Login from './components/Login/Login.vue'
-import Upload from './components/Upload/Upload.vue'
-import Tree from './components/Tree/Tree.vue'
+import Dashboard from './components/Dashboard/Dashboard.vue'
 // model
 import store from './vuex/store.js'
 
@@ -23,11 +22,8 @@ router.map({
   '/login': {
     component: Login
   },
-  '/upload': {
-    component: Upload
-  },
-  '/tree': {
-    component: Tree
+  '/dashboard': {
+    component: Dashboard
   }
 })
 
@@ -36,7 +32,7 @@ router.beforeEach(function() {
 })
 
 router.redirect({
-  '*': '/upload'
+  '*': '/dashboard'
 })
 
 sync(store, router)
@@ -46,7 +42,7 @@ Vue.config.debug = true
 
 Vue.http.interceptors.push({
   request: function(request) {
-  	Vue.http.headers.common['Authorization'] = sessionStorage.getItem('token')
+  	Vue.http.headers.common['Authorization'] = 'JWT' + sessionStorage.getItem('token')
     return request
   },
   response: function(response) {

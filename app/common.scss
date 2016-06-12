@@ -95,7 +95,8 @@ $prefix-for-spec: true !default;
   @include box-shadow(0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12));
 }
 
-@mixin blog-btn($withLoader) {
+
+%blog-btn {
   padding: 0 1.5rem;
   height: 4rem;
   @include border-radius(4px);
@@ -109,27 +110,4 @@ $prefix-for-spec: true !default;
     opacity: 0.5;
     cursor: not-allowed;
   }
-  @if $withLoader=='true' {
-    .cssload-ball {
-      border-color: $white;
-      position: static; // overwrite default
-      left: 0;// overwrite default
-      height: 2rem;
-      width: 2rem;
-      border-radius: 2rem;
-      float: left;
-      margin-right: 1rem;
-      &:after {
-        width: 0.5rem;
-        height: 0.5rem;
-        background-color: $white;
-      }
-    }
-  }
-}
-
-%content-holder {
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0 1rem;
 }

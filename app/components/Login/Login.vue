@@ -12,8 +12,8 @@
 			<input type='password' class='login-input form-control' v-model='loginObj.password' placeholder='PASSWORD' @keyup.13='login' />
 		</div>
 		<button class='login-btn' @click='login'>
+			<div class="cssload-ball cssload-ball-small" v-if="showLoading"></div>
 			LOGIN
-            <div class="cssload-ball btn-loader" v-if="showLoading"></div>
         </button>
 		<a class='register-link' @click='showRegisterModal'>REGISTER</a>
 	</div>
@@ -71,7 +71,7 @@ export default {
 	margin-bottom: 0;
 	padding: 3rem 3rem 7rem 3rem;
 	.login-btn {
-		@include blog-btn('true');
+		@extend %blog-btn;
 		width: 100%;
 		background-color: $basic-blue;
 		color: #fff;

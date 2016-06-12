@@ -1,7 +1,7 @@
 <template>
 	<div class='nav-holder'>
 		<div class='info-holder'>
-			UI Samples
+			数胎动
 		</div>
 		<nav class='nav'>
 			<!-- <a v-link='' class='float-right nav-tab' v-bind:class='appModel.navBarModel.currentTab === "tab" ? "current-tab": ""'>Tab</a> -->

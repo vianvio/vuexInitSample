@@ -1,10 +1,2 @@
-# Upload sample with vue
-* Include login
-* Try with ES6 & Vuex
-* Can run with [blog backend](https://github.com/vianvio/blogWithVueBackend)
-
-# prepare
-> npm install
-
-# start
-npm run start
+### 数胎动应用web版
+用于辅助孕妈数胎动，先做个5分钟版的
