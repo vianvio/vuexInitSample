@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      currentTime: undefined,
+      currentTime: moment().hour(0).minute(0).second(0),
       remainingSecond: 0,
     }
   },
@@ -40,12 +40,14 @@ export default {
         // duration is seconds
         this.currentTime = moment().hour(0).minute(0).second(0).add(this.duration, 'second')
           // make it easier to stop
-        this.remainingSecond = this.duration
+          // should minus 1, otherwise will be 1 sec more then duration
+        this.remainingSecond = this.duration - 1
         this._timer = setInterval(() => {
-          // should be less then 1, otherwise will be 1 sec more then duration
-          if (this.remainingSecond <= 1) {
+          if (this.remainingSecond <= 0) {
             clearInterval(this._timer)
-            this.ref.onFinish()
+              // last change of time
+            this.currentTime = moment(this.currentTime).subtract(1, 'second')
+            this.ref.onFinish && this.ref.onFinish()
           } else {
             this.currentTime = moment(this.currentTime).subtract(1, 'second')
             this.remainingSecond = this.remainingSecond - 1

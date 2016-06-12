@@ -28,3 +28,7 @@ export const logoutAction = ({ dispatch, router }) => {
     router.go('/login')
   }
 }
+
+export const setStartTime = ({ dispatch, router }) => {
+  dispatch(types.SET_START_TIME, new Date())
+}

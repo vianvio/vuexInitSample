@@ -70,7 +70,7 @@ export default {
   margin-bottom: 0;
   padding: 3rem 3rem 7rem 3rem;
   .login-btn {
-    @extend %blog-btn;
+    @extend %btn;
     width: 100%;
     background-color: $basic-blue;
     color: #fff;
