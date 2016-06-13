@@ -23,11 +23,11 @@
         <hr/>
         <div class='row'>
           <div class='col-xs-5 result-title'>胎动总数</div>
-          <div class='col-xs-7'></div>
+          <div class='col-xs-7'>{{ totalMoveCount }}</div>
         </div>
         <div class='row'>
           <div class='col-xs-5 result-title'>5分钟内次数</div>
-          <div class='col-xs-7'></div>
+          <div class='col-xs-7'>{{ countInPeriod }}</div>
         </div>
         <div class='row'>
           <button class='start-btn pull-right' @click='startCount'>开始记时</button>
@@ -45,8 +45,18 @@
       </div>
     </div>
     <div class='down-holder'>
-      <button>一直在动</button>
-      <button @click='initInterval'>动了一下</button>
+      <div class='col-xs-6 down-btn-holder'>
+        <button class='start-btn down-btn {{ bMoving ? "moving-btn" : "" }}' :disabled='!bStarted' @click='keepMoving'>一直在动</button>
+        <div class='moving-img-holder' v-if='bMoving'>
+          <img src='../../assets/moving.gif'>
+        </div>
+      </div>
+      <div class='col-xs-6 down-btn-holder'>
+        <button class='start-btn down-btn' :disabled='!bStarted' @click='oneHit'>动了一下</button>
+        <div class='moving-img-holder' v-if='bOneHit'>
+          <img src='../../assets/onehit.jpg'>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -73,28 +83,52 @@ export default {
       timerTotal: {
         onFinish: () => {
           console.log('finished')
+          this.$data.bStarted = false
+          // when finish, save result to localstorage, since 1 hour is long time for token.
         }
       },
       timerPeriod: {
         onFinish: () => {
           console.log('period finish')
+            // init count for next period
+          this.$data.countInPeriod = 0
+          if (this.$data.bStarted) {
+            // whenever total timer is working, call next period
+            this.$data.timerPeriod.init()
+          }
         }
       },
       timerInterval: {
 
-      }
+      },
+      bStarted: false,
+      bMoving: false,
+      bOneHit: false,
+      totalMoveCount: 0,
+      countInPeriod: 0,
     }
   },
   methods: {
     startCount() {
+      this.$data.bStarted = true;
       this.setStartTime()
       this.$data.timerTotal.init()
+        // start the first period
+      this.$data.timerPeriod.init()
     },
     initInterval() {
       this.$data.timerInterval.init()
+    },
+    keepMoving() {
+      this.$data.bMoving = !this.$data.bMoving;
+    },
+    oneHit() {
+      this.$data.bOneHit = true;
+      if (this._onehitTimer) {
+        clearTimeout(this._onehitTimer)
+      }
+      this._onehitTimer = setTimeout(() => this.$data.bOneHit = false, 1000)
     }
-
-    // when finish, save result to localstorage, since 1 hour is long time for token.
   },
   filters: {
     moment: (date) => {
@@ -153,6 +187,20 @@ export default {
         color: $dark-coffee;
       }
     }
+  }
+  .down-btn-holder {
+    text-align: center;
+    padding: 5rem;
+  }
+  .down-btn {
+    padding: 3rem 5rem;
+    height: auto;
+  }
+  .start-btn.moving-btn {
+    background-color: $dark-coffee;
+  }
+  .moving-img-holder {
+    margin-top: 1.5rem;
   }
 }
 </style>

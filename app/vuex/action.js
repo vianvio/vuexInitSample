@@ -13,6 +13,7 @@ export const loginAction = ({ dispatch, router }, loginObj) => {
   dispatch(types.SET_LOGIN_LOADING_FLAG, true)
   Vue.http.post('/api-token-auth/', loginObj).then(function(resp) {
     dispatch(types.SET_LOGIN_LOADING_FLAG, false)
+    dispatch(types.SET_LOGIN_FLAG, false)
     sessionStorage.clear();
     sessionStorage.setItem('token', resp.data.token);
     router.go('/dashboard')

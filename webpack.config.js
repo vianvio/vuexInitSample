@@ -52,7 +52,7 @@ module.exports = {
       loaders: ['style', 'css'],
       include: ROOT_PATH
     }, {
-      test: /\.(png|jpg)$/,
+      test: /\.(png|jpg|gif)$/,
       loader: 'url-loader?limit=8192'
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

@@ -32,7 +32,7 @@ export default {
   },
   created() {
     // cannot use default for ref, {} is not undefined
-    Object.assign(this.ref, {
+    this.ref && Object.assign(this.ref, {
       init: () => {
         if (this._timer) {
           clearInterval(this._timer)
