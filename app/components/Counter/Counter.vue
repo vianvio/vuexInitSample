@@ -9,7 +9,7 @@
         <div class='row'>
           <div class='col-xs-5 result-title'>剩余时间</div>
           <div class='col-xs-7'>
-            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='3600'></clock>
+            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='10'></clock>
           </div>
         </div>
         <div class='row'>
@@ -35,12 +35,12 @@
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerPeriod' :duration='300'></clock>
+          <clock :ref.sync='timerPeriod' :duration='10'></clock>
         </div>
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerInterval' :duration='60'></clock>
+          <clock :ref.sync='timerInterval' :duration='5'></clock>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class='col-xs-6 down-btn-holder'>
-        <button class='start-btn down-btn' :disabled='!bStarted' @click='oneHit'>动了一下</button>
+        <button class='start-btn down-btn' :disabled='!bStarted || bMoving' @click='oneHit'>动了一下</button>
         <div class='moving-img-holder' v-if='bOneHit'>
           <img src='../../assets/onehit.jpg'>
         </div>
@@ -61,18 +61,18 @@
   </div>
 </template>
 <script>
-import { initComponent, setStartTime } from '../../vuex/action.js'
+import { initComponent, incrementTotalCount } from '../../vuex/action.js'
 import clock from '../../shared/clock.vue'
 import moment from 'moment'
 
 export default {
   vuex: {
     getters: {
-      startTime: ({ counter }) => counter.startTime
+      totalMoveCount: ({ counter }) => counter.totalMoveCount,
     },
     actions: {
       initComponent,
-      setStartTime,
+      incrementTotalCount,
     }
   },
   components: {
@@ -84,7 +84,14 @@ export default {
         onFinish: () => {
           console.log('finished')
           this.$data.bStarted = false
-          // when finish, save result to localstorage, since 1 hour is long time for token.
+            // when finish, save result to localstorage, since 1 hour is long time for token.
+          let arrResults = localStorage.getItem('babyMoveCounter')
+          arrResults = arrResults ? JSON.parse(arrResults) : []
+          arrResults.push({
+            startTime: this.$data.startTime,
+            totalMoveCount: this.totalMoveCount
+          })
+          localStorage.setItem('babyMoveCounter', JSON.stringify(arrResults))
         }
       },
       timerPeriod: {
@@ -95,23 +102,38 @@ export default {
           if (this.$data.bStarted) {
             // whenever total timer is working, call next period
             this.$data.timerPeriod.init()
+            if (this.$data.bMoving) {
+              // if still moving, should add 1 for count
+              this.incrementTotalCount()
+              this.$data.countInPeriod += 1
+            }
           }
         }
       },
       timerInterval: {
-
+        onFinish: () => {
+          this.$data.bWithinInterval = false
+        }
       },
+      startTime: '',
       bStarted: false,
       bMoving: false,
       bOneHit: false,
-      totalMoveCount: 0,
+      bWithinInterval: false,
       countInPeriod: 0,
     }
   },
   methods: {
     startCount() {
-      this.$data.bStarted = true;
-      this.setStartTime()
+      // init states
+      this.$data.bMoving = false
+      this.$data.bOneHit = false
+      this.$data.bWithinInterval = false
+      this.$data.countInPeriod = 0
+      this.initComponent('counter')
+
+      this.$data.bStarted = true
+      this.$data.startTime = new Date()
       this.$data.timerTotal.init()
         // start the first period
       this.$data.timerPeriod.init()
@@ -121,6 +143,19 @@ export default {
     },
     keepMoving() {
       this.$data.bMoving = !this.$data.bMoving;
+      if (this.$data.bMoving) {
+        // check if is in interval
+        if (!this.$data.bWithinInterval) {
+          this.$data.countInPeriod += 1
+          this.incrementTotalCount()
+        }
+        // start moving, so no need to watch interval
+        this.timerInterval.forceFinish()
+      } else {
+        // finish moving, start watching interval
+        this.timerInterval.init()
+        this.$data.bWithinInterval = true
+      }
     },
     oneHit() {
       this.$data.bOneHit = true;
@@ -128,6 +163,18 @@ export default {
         clearTimeout(this._onehitTimer)
       }
       this._onehitTimer = setTimeout(() => this.$data.bOneHit = false, 1000)
+
+      // if out of interval
+      if (!this.$data.bWithinInterval) {
+        this.$data.bWithinInterval = true
+        this.$data.countInPeriod += 1
+        this.incrementTotalCount()
+          // start watching interval
+        this.$data.timerInterval.init()
+      } else {
+        // within interval, if baby hits, should restart the interval
+        this.$data.timerInterval.init()
+      }
     }
   },
   filters: {

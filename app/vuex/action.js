@@ -30,6 +30,6 @@ export const logoutAction = ({ dispatch, router }) => {
   }
 }
 
-export const setStartTime = ({ dispatch, router }) => {
-  dispatch(types.SET_START_TIME, new Date())
+export const incrementTotalCount = ({ dispatch }) => {
+  dispatch(types.INCREMENT_TOTAL_COUNT)
 }

@@ -53,6 +53,13 @@ export default {
             this.remainingSecond = this.remainingSecond - 1
           }
         }, 1000)
+      },
+      forceFinish: () => {
+        if (this._timer) {
+          clearInterval(this._timer)
+          this.currentTime = moment().hour(0).minute(0).second(0)
+          this.ref.onFinish && this.ref.onFinish()
+        }
       }
     })
   }

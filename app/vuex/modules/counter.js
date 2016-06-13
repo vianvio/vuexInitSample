@@ -1,15 +1,15 @@
 import {
-  SET_START_TIME
+  INCREMENT_TOTAL_COUNT
 } from '../mutation-types'
 
 // initial state
 const state = {
-  startTime: undefined
+  totalMoveCount: 0
 }
 
 // mutations
 const mutations = {
-  [SET_START_TIME] (state, datetime) { state.startTime = datetime }
+  [INCREMENT_TOTAL_COUNT](state) { state.totalMoveCount += 1 }
 }
 
 export default {
