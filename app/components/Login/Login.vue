@@ -15,26 +15,30 @@
       <div class="cssload-ball cssload-ball-small" v-if="showLoading"></div>
       登录
     </button>
-    <a class='register-link' @click='showRegisterModal'>注册</a>
+    <a class='register-link' @click='showModal'>注册</a>
+    <!-- register modal -->
+    <register-modal v-if='showRegisterModal'></register-modal>
   </div>
 </template>
 <script>
-import {
-  loginAction,
-  setLoginFlag
-} from '../../vuex/action.js'
+import registerModal from '../../shared/modals/register.vue'
+import { loginAction, setLoginFlag, controlModal } from '../../vuex/action.js'
 
 export default {
   vuex: {
     getters: {
-      showLoading: ({ login }) => login.showLoading
+      showLoading: ({ login }) => login.showLoading,
+      showRegisterModal: ({ login }) => login.showRegisterModal,
     },
     actions: {
       loginAction,
-      setLoginFlag
+      setLoginFlag,
+      controlModal,
     }
   },
-  components: {},
+  components: {
+  	registerModal
+  },
   data() {
     return {
       loginObj: {
@@ -47,7 +51,9 @@ export default {
     login() {
       this.loginAction(this.loginObj)
     },
-    showRegisterModal() {}
+    showModal() {
+      this.controlModal('login', 'showRegisterModal', true)
+    }
   },
   ready() {
     this.setLoginFlag(true)
