@@ -1,17 +1,19 @@
 <template>
-  <div class='vn-modal-holder full-height' v-bind:class='modalClass' @click='close'>
-    <div class='vn-modal' v-if='show' transition='show-modal' @click.stop>
-      <slot name='modal-header'>
-        <div class='vn-modal-header'>
-          <span class='vn-modal-title'>{{modalTitle}}</span>
-          <div class='fa fa-remove vn-modal-closer float-right' v-on:click='close'></div>
-        </div>
-      </slot>
-      <slot name='modal-body'></slot>
-      <slot name='modal-footer'>
-        <div class='nv-modal-footer'>
-        </div>
-      </slot>
+  <div v-if='show' transition='show-modal' v-bind:class='modalClass'>
+    <div class='vn-modal-holder full-height' @click='close'>
+      <div class='vn-modal' @click.stop>
+        <slot name='modal-header'>
+          <div class='vn-modal-header'>
+            <span class='vn-modal-title'>{{modalTitle}}</span>
+            <div class='fa fa-remove vn-modal-closer float-right' v-on:click='close'></div>
+          </div>
+        </slot>
+        <slot name='modal-body'></slot>
+        <slot name='modal-footer'>
+          <div class='nv-modal-footer'>
+          </div>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +24,7 @@ module.exports = {
   name: 'modalHolder',
   data() {
     return {
-      show: false
+      // show: false
     }
   },
   vuex: {
@@ -33,21 +35,21 @@ module.exports = {
   props: {
     modalTitle: String,
     modalClass: String,
+    show: Boolean,
     module: String,
     modalProperty: String,
   },
   methods: {
     close: function() {
-      this.show = false
+      this.controlModal(this.module, this.modalProperty, false)
     }
   },
   ready: function() {
-    this.show = true
+    // this.show = true
   },
   transitions: {
     showModal: {
       afterLeave: function(el) {
-        console.log('test')
         this.controlModal(this.module, this.modalProperty, false)
       }
     }
@@ -74,6 +76,14 @@ module.exports = {
     width: 100%;
     height: 100%;
   }
+}
+
+.show-modal-transition {
+  transition: all .6s ease;
+}
+
+.show-modal-leave {
+  opacity: 0;
 }
 
 .vn-modal {

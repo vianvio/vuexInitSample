@@ -1,5 +1,5 @@
 <template>
-  <modal-holder modal-title='注 册' module='login' modal-property='showRegisterModal' modal-class='register-modal'>
+  <modal-holder modal-title='注 册' module='login' modal-property='showRegisterModal' :show='showRegisterModal' modal-class='register-modal'>
     <div slot='modal-body' class='vn-modal-body'>
       <input type='text' placeholder='用户名' class='register-input' v-model='registerObj.username' />
       <input type='password' placeholder='密码' class='register-input' v-model='registerObj.password' />
@@ -18,7 +18,8 @@ import { registerAction } from '../../vuex/action.js'
 module.exports = {
   vuex: {
     getters: {
-      showLoading: ({ register }) => register.showLoading
+      showLoading: ({ register }) => register.showLoading,
+      showRegisterModal: ({ login }) => login.showRegisterModal,
     },
     actions: {
       registerAction,
@@ -41,8 +42,9 @@ module.exports = {
 <style lang='sass'>
 @import '../../variables.scss';
 @import '../../common.scss';
+
+@include modalDisplayTransition(.3s, 17rem, 19rem, 'register-modal');
 .register-modal {
-  @include modalDisplayTransition(.3s, 17rem, 19rem);
   .vn-modal {
     width: 38rem;
     margin-left: -19rem;

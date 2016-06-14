@@ -17,7 +17,7 @@
     </button>
     <a class='register-link' @click='showModal'>注册</a>
     <!-- register modal -->
-    <register-modal v-if='showRegisterModal'></register-modal>
+    <register-modal></register-modal>
   </div>
 </template>
 <script>
@@ -28,7 +28,6 @@ export default {
   vuex: {
     getters: {
       showLoading: ({ login }) => login.showLoading,
-      showRegisterModal: ({ login }) => login.showRegisterModal,
     },
     actions: {
       loginAction,
@@ -37,7 +36,7 @@ export default {
     }
   },
   components: {
-  	registerModal
+    registerModal
   },
   data() {
     return {

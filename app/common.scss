@@ -90,16 +90,20 @@ $prefix-for-spec: true !default;
   }
 }
 
-@mixin modalDisplayTransition($time, $initTop, $endTop) {
-  .show-modal-transition {
-    transition: all $time ease;
-    opacity: 1;
-    top: $endTop;
+@mixin modalDisplayTransition($time, $initTop, $endTop, $modal-class) {
+  .#{$modal-class}.show-modal-transition {
+    .vn-modal {
+      transition: all $time ease;
+      opacity: 1;
+      top: $endTop;
+    }
   }
-  .show-modal-enter,
-  .show-modal-leave {
-    top: $initTop;
-    opacity: 0;
+  .#{$modal-class}.show-modal-enter,
+  .#{$modal-class}.show-modal-leave {
+    .vn-modal {
+      opacity: 0;
+      top: $initTop;
+    }
   }
 }
 
