@@ -10,43 +10,43 @@
       </a>
       <a v-link='"/dashboard"' class='float-left nav-tab' v-if='!bLoginPage' v-bind:class='route === "/dashboard" ? "current-tab": ""'>统计数据</a>
       <a v-link='"/counter"' class='float-left nav-tab' v-if='!bLoginPage' v-bind:class='route === "/counter" ? "current-tab": ""'>计数</a>
+      <a class='float-left nav-tab position-relative list-tab' v-if='!bLogin' v-bind:class='/admin/.test(route) ? "current-tab": ""'>Sample
+        <div class='list-dropdown'>
+          <div class='list-tab' v-link='"/admin/tenantList"'>Tenant Management</div>
+          <div class='list-tab' v-link='"/admin/roleList"'>Role Management</div>
+        </div>
+      </a>
     </nav>
   </div>
 </template>
-
 <script>
 import { logoutAction } from '../vuex/action.js'
 
 export default {
-  vuex:{
-      getters:{
-        bLoginPage: ({ app }) => app.bLoginPage,
-        showLoading: ({ nav }) => nav.showLoading,
-        route: ({ route }) => route.path
-      },
-      actions:{
-        logoutAction,
-      }
+  vuex: {
+    getters: {
+      bLoginPage: ({ app }) => app.bLoginPage,
+      showLoading: ({ nav }) => nav.showLoading,
+      route: ({ route }) => route.path
     },
-  data() {
-    return {
-      
+    actions: {
+      logoutAction,
     }
   },
-  methods:{
+  data() {
+    return {
+
+    }
   },
-  events:{
-  },
-  created() {
-  }
+  methods: {},
+  events: {},
+  created() {}
 };
 </script>
-
 <style lang='sass'>
 @import '../variables.scss';
 @import '../common.scss';
-
-.nav-holder{
+.nav-holder {
   background-color: $basic-blue;
   color: $white;
   height: $nav-height;
@@ -60,14 +60,14 @@ export default {
     color: $white;
     cursor: pointer;
     margin: 0 3rem;
-    &:hover{
+    &:hover {
       color: $white;
       border-bottom: 2px solid $white;
     }
   }
 }
 
-.info-holder{ 
+.info-holder {
   text-align: center;
   float: left;
   font-size: 2.5rem;
@@ -90,4 +90,31 @@ export default {
   background-color: $basic-green;
 }
 
+.list-tab {
+  position: relative;
+  &:hover {
+    .list-dropdown {
+      height: auto;
+    }
+  }
+  .list-dropdown {
+    color: $white;
+    position: absolute;
+    left: 0;
+    top: $nav-height;
+    height: 0;
+    overflow: hidden;
+    background-color: $basic-blue;
+    &:hover {
+      height: auto;
+    }
+    .list-tab {
+      padding: 2rem;
+      line-height: 1;
+      &:hover {
+        background-color: $basic-green;
+      }
+    }
+  }
+}
 </style>

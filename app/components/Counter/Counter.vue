@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-import { initComponent, incrementTotalCount } from '../../vuex/action.js'
+import { initComponent, incrementTotalCount, saveCountResult } from '../../vuex/action.js'
 import clock from '../../shared/clock.vue'
 import moment from 'moment'
 
@@ -73,6 +73,7 @@ export default {
     actions: {
       initComponent,
       incrementTotalCount,
+      saveCountResult,
     }
   },
   components: {
@@ -85,13 +86,14 @@ export default {
           console.log('finished')
           this.$data.bStarted = false
             // when finish, save result to localstorage, since 1 hour is long time for token.
-          let arrResults = localStorage.getItem('babyMoveCounter')
-          arrResults = arrResults ? JSON.parse(arrResults) : []
-          arrResults.push({
+          localStorage.clear()
+          let results = {
             startTime: this.$data.startTime,
             totalMoveCount: this.totalMoveCount
-          })
-          localStorage.setItem('babyMoveCounter', JSON.stringify(arrResults))
+          }
+          localStorage.setItem('babyMoveCounter', JSON.stringify(results))
+            // save to server
+            this.saveCountResult()
         }
       },
       timerPeriod: {

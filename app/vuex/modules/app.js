@@ -6,13 +6,13 @@ import {
 // initial state
 const state = {
   bLoginPage: false,
-  bLoading: false
+  showLoading: false
 }
 
 // mutations
 const mutations = {
     [SET_LOGIN_FLAG] (state, flag) { state.bLoginPage = flag },
-    [SET_LOADING_FLAG] (state, flag) { state.bLoading = flag }
+    [SET_LOADING_FLAG] (state, flag) { state.showLoading = flag }
 }
 
 export default {

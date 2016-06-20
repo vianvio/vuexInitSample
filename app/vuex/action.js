@@ -15,13 +15,13 @@ export const setLoginFlag = ({ dispatch }, flag) => {
 
 export const loginAction = ({ dispatch, router }, loginObj) => {
   dispatch(types.CONTROL_LOADING, 'login', 'showLoading', true)
-  Vue.http.post('/api-token-auth/', loginObj).then(function(resp) {
+  Vue.http.post('/babyMoveApi/api-token-auth/', loginObj).then((resp) => {
     dispatch(types.CONTROL_LOADING, 'login', 'showLoading', false)
     dispatch(types.SET_LOGIN_FLAG, false)
     sessionStorage.clear();
     sessionStorage.setItem('token', resp.data.token);
     router.go('/dashboard')
-  }, function(err) {
+  }, (err) => {
     dispatch(types.CONTROL_LOADING, 'login', 'showLoading', false)
   })
 }
@@ -36,4 +36,14 @@ export const logoutAction = ({ dispatch, router }) => {
 
 export const incrementTotalCount = ({ dispatch }) => {
   dispatch(types.INCREMENT_TOTAL_COUNT)
+}
+
+export const saveCountResult = ({ dispatch }) => {
+  // load app loader
+  dispatch(types.CONTROL_LOADING, 'app', 'showLoading', true)
+    // get local storage result
+  let result = JSON.parse(localStorage.getItem('babyMoveCounter'))
+  Vue.http.post('/babyMoveApi/api/test_insert', result).then((resp) => {
+
+  }, (err) => {})
 }

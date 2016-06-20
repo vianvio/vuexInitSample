@@ -8,7 +8,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var node_modules = path.resolve(__dirname, 'node_modules');
-var PRD_BUILD_PATH = path.resolve(ROOT_PATH, '../static/');
+var PRD_BUILD_PATH = BUILD_PATH; // could be some place else
 
 module.exports = {
   // define 2 entries, one for app, one for venders
@@ -30,8 +30,8 @@ module.exports = {
     progress: true,
     // make api call redirect to other server
     proxy: {
-      "/api/*": "http://localhost:8000",
-      "/api-token-auth/": "http://localhost:8000",
+      "/babyMoveApi/*": "http://localhost:8000",
+      // "/api-token-auth/": "http://localhost:8000",
     }
   },
   devtool: 'eval-source-map',
