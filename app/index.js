@@ -56,5 +56,3 @@ Vue.http.interceptors.push({
     return response
   }
 });
-
-//test deploy
