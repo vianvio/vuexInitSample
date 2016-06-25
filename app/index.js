@@ -36,7 +36,7 @@ router.beforeEach(function() {
 })
 
 router.redirect({
-  '*': '/dashboard'
+  '*': '/login'
 })
 
 sync(store, router)
