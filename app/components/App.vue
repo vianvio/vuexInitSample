@@ -6,7 +6,7 @@
   <router-view></router-view>
 </template>
 <script>
-import navbar from '../shared/navbar.vue'
+import navbar from '../shared/navBar.vue'
 import store from '../vuex/store.js'
 
 export default {
