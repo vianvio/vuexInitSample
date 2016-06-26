@@ -1,10 +1,19 @@
 language: node_js
 node_js:
-  - "5"
-  - "4"
-  - "0.12"
+- '5'
+- '4'
+- '0.12'
 script:
-  - npm run test
+- npm run test
 branches:
   only:
-    - master
+  - master
+before_install:
+- openssl aes-256-cbc -K $encrypted_cb1b65bfda52_key -iv $encrypted_cb1b65bfda52_iv
+  -in travis_deploy.pub.enc -out travis_deploy.pub -d
+after_success:
+  - eval "$(ssh-agent -s)" #start the ssh agent
+  - chmod 600 travis_deploy.pub # this key should have push access
+  - ssh-add travis_deploy.pub
+  - git remote add deploy git@54.238.161.17:/opt/git/babyMoveCounter.git
+  - git push deploy
