@@ -5,7 +5,6 @@ import { sync } from 'vuex-router-sync'
 
 Vue.use(Router)
 Vue.use(Resource)
-Vue.use(VueValidator)
 
 // components
 import App from './components/App.vue'
