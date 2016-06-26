@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Resource from'vue-resource'
 import { sync } from 'vuex-router-sync'
-import VueValidator from 'vue-validator'
 
 Vue.use(Router)
 Vue.use(Resource)
@@ -56,4 +55,3 @@ Vue.http.interceptors.push({
     return response
   }
 });
-//test
