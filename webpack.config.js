@@ -8,7 +8,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var node_modules = path.resolve(__dirname, 'node_modules');
-var PRD_BUILD_PATH = BUILD_PATH; // could be some place else
+var PRD_BUILD_PATH = path.resolve(ROOT_PATH, '../../deploy/');
 
 module.exports = {
   // define 2 entries, one for app, one for venders
