@@ -9,7 +9,7 @@
         <div class='row'>
           <div class='col-xs-5 result-title'>剩余时间</div>
           <div class='col-xs-7'>
-            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='60'></clock>
+            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='600'></clock>
           </div>
         </div>
         <div class='row'>
@@ -35,12 +35,12 @@
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerPeriod' :duration='20'></clock>
+          <clock :ref.sync='timerPeriod' :duration='60'></clock>
         </div>
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerInterval' :duration='10'></clock>
+          <clock :ref.sync='timerInterval' :duration='30'></clock>
         </div>
       </div>
     </div>
