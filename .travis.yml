@@ -11,9 +11,10 @@ before_install:
   -in travis_deploy.enc -out travis_deploy -d
 - chmod 600 travis_deploy
 - cp travis_deploy ~/.ssh/travis_deploy
+- cp travis_config ~/.ssh/config
+
 after_success:
 - eval "$(ssh-agent -s)"
 - ssh-add ~/.ssh/travis_deploy
 - git remote add deploy git@54.238.161.17:/opt/git/babyMoveCounter.git
 - git push deploy
-- yes

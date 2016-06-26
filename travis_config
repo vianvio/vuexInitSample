@@ -1,0 +1,5 @@
+Host 54.238.161.17
+  User git
+  StrictHostKeyChecking no
+  IdentityFile ~/.ssh/travis_deploy
+  IdentitiesOnly yes
