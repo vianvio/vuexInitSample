@@ -1,8 +1,6 @@
 language: node_js
 node_js:
-- '5'
 - '4'
-- '0.12'
 script:
 - npm run test
 branches:
@@ -18,3 +16,4 @@ after_success:
 - ssh-add ~/.ssh/travis_deploy
 - git remote add deploy git@54.238.161.17:/opt/git/babyMoveCounter.git
 - git push deploy
+- yes
