@@ -95,11 +95,11 @@ export default {
         },
         onSubtract: () => {
           // check current time and the overall start time
-          let secondsPassed = Math.ceil(((new Date()).getTime() - this.timerTotal.getStartTime()) / 1000) - 1
-          let secondsPassedInPeriod = Math.ceil(((new Date()).getTime() - this.timerPeriod.getStartTime()) / 1000) - 1
-          let secondsPassedInInterval = Math.ceil(((new Date()).getTime() - this.timerInterval.getStartTime()) / 1000) - 1
-          console.log(secondsPassed)
-          if (secondsPassed !== this.timerTotal.getRemainingSecond()) {
+          let secondsPassed = Math.ceil(((new Date()).getTime() - this.timerTotal.getStartTime()) / 1000)
+          let secondsPassedInPeriod = Math.ceil(((new Date()).getTime() - this.timerPeriod.getStartTime()) / 1000)
+          let secondsPassedInInterval = Math.ceil(((new Date()).getTime() - this.timerInterval.getStartTime()) / 1000)
+          // if diferred by 5 seconds
+          if (3600 - secondsPassed <= this.timerTotal.getRemainingSecond() - 5) {
             // reset timer status, fix issue for lock screen on ipad
             if (this.$data.bMoving) {
               // if baby is in moving mode, need to calculate move counters
@@ -122,11 +122,15 @@ export default {
               this.timerTotal.init(3600 - secondsPassed)
                 // 2. reset period timer
               if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
-                this.timerPeriod.init(300 - (secondsPassedInPeriod - Math.floor(secondsPassedInPeriod / 300) * 300 - this.timerPeriod.getRemainingSecond()))
+                this.timerPeriod.init(300 - (secondsPassedInPeriod - (Math.floor(secondsPassedInPeriod / 300) * 300) - this.timerPeriod.getRemainingSecond()))
+              } else {
+                this.timerPeriod.init(300 - secondsPassedInPeriod)
               }
               // 3. reset interval timer
               if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
-                this.timerInterval.init(60 - (secondsPassedInInterval - Math.floor(secondsPassedInInterval / 60) * 60 - this.timerInterval.getRemainingSecond()))
+                this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60) - this.timerInterval.getRemainingSecond()))
+              } else {
+                this.timerInterval.init(60 - secondsPassedInInterval)
               }
             } else if (secondsPassed === 3600) {
               this.timerTotal.forceFinish()
