@@ -9,7 +9,7 @@
         <div class='row'>
           <div class='col-xs-5 result-title'>剩余时间</div>
           <div class='col-xs-7'>
-            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='600'></clock>
+            <clock class='timer-total-color' :ref.sync='timerTotal' :duration='3600'></clock>
           </div>
         </div>
         <div class='row'>
@@ -35,12 +35,12 @@
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerPeriod' :duration='60'></clock>
+          <clock :ref.sync='timerPeriod' :duration='300'></clock>
         </div>
       </div>
       <div class='timer-holder'>
         <div class='timer-border'>
-          <clock :ref.sync='timerInterval' :duration='30'></clock>
+          <clock :ref.sync='timerInterval' :duration='60'></clock>
         </div>
       </div>
     </div>
@@ -85,14 +85,53 @@ export default {
         onFinish: () => {
           this.$data.bStarted = false
             // when finish, save result to localstorage, since 1 hour is long time for token.
-          localStorage.clear()
           let results = {
             startTime: this.$data.startTime,
             totalMoveCount: this.totalMoveCount
           }
           localStorage.setItem('babyMoveCounter', JSON.stringify(results))
             // save to server
-            this.saveCountResult()
+          this.saveCountResult()
+        },
+        onSubtract: () => {
+          // check current time and the overall start time
+          let secondsPassed = Math.ceil(((new Date()).getTime() - this.timerTotal.getStartTime()) / 1000) - 1
+          let secondsPassedInPeriod = Math.ceil(((new Date()).getTime() - this.timerPeriod.getStartTime()) / 1000) - 1
+          let secondsPassedInInterval = Math.ceil(((new Date()).getTime() - this.timerInterval.getStartTime()) / 1000) - 1
+          console.log(secondsPassed)
+          if (secondsPassed !== this.timerTotal.getRemainingSecond()) {
+            // reset timer status, fix issue for lock screen on ipad
+            if (this.$data.bMoving) {
+              // if baby is in moving mode, need to calculate move counters
+              // only when passed period larger then remaining sec
+              if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
+                // at least plus 1
+                this.incrementTotalCount()
+                  // maybe passed many periods
+                for (let i = 0; i < Math.floor((secondsPassedInPeriod - this.timerPeriod.getRemainingSecond()) / 300); i++) {
+                  this.incrementTotalCount()
+                }
+                // reset count in period, for reset, it always 1
+                this.$data.countInPeriod = 1
+              }
+            }
+
+            // reset timers
+            if (secondsPassed < 3600) {
+              // 1. reset total timer
+              this.timerTotal.init(3600 - secondsPassed)
+                // 2. reset period timer
+              if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
+                this.timerPeriod.init(300 - (secondsPassedInPeriod - Math.floor(secondsPassedInPeriod / 300) * 300 - this.timerPeriod.getRemainingSecond()))
+              }
+              // 3. reset interval timer
+              if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
+                this.timerInterval.init(60 - (secondsPassedInInterval - Math.floor(secondsPassedInInterval / 60) * 60 - this.timerInterval.getRemainingSecond()))
+              }
+            } else if (secondsPassed === 3600) {
+              this.timerTotal.forceFinish()
+            }
+          }
         }
       },
       timerPeriod: {
@@ -138,6 +177,7 @@ export default {
       this.$data.timerTotal.init()
         // start the first period
       this.$data.timerPeriod.init()
+      localStorage.setItem('startTime', this.$data.startTime.getTime())
     },
     initInterval() {
       this.$data.timerInterval.init()

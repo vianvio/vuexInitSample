@@ -21,6 +21,7 @@ export default {
     return {
       currentTime: moment().hour(0).minute(0).second(0),
       remainingSecond: 0,
+      startTime: '',
     }
   },
   methods: {},
@@ -33,11 +34,15 @@ export default {
   created() {
     // cannot use default for ref, {} is not undefined
     this.ref && Object.assign(this.ref, {
-      init: () => {
+      init: (duration) => {
+        if (!!duration) {
+          this.duration = duration
+        }
         if (this._timer) {
           clearInterval(this._timer)
         }
         // duration is seconds
+        this.startTime = (new Date()).getTime()
         this.currentTime = moment().hour(0).minute(0).second(0).add(this.duration, 'second')
           // make it easier to stop
           // should minus 1, otherwise will be 1 sec more then duration
@@ -51,6 +56,7 @@ export default {
           } else {
             this.currentTime = moment(this.currentTime).subtract(1, 'second')
             this.remainingSecond = this.remainingSecond - 1
+            this.ref.onSubtract && this.ref.onSubtract()
           }
         }, 1000)
       },
@@ -60,6 +66,12 @@ export default {
           this.currentTime = moment().hour(0).minute(0).second(0)
           this.ref.onFinish && this.ref.onFinish()
         }
+      },
+      getStartTime: () => {
+        return this.startTime
+      },
+      getRemainingSecond: () => {
+        return this.remainingSecond
       }
     })
   }
