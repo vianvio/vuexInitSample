@@ -117,7 +117,7 @@ export default {
             }
 
             // reset timers
-            if (secondsPassed < 3600) {
+            if (secondsPassed < 3600) { 
               // 1. reset total timer
               this.timerTotal.init(3600 - secondsPassed)
                 // 2. reset period timer
