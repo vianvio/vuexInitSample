@@ -98,7 +98,7 @@ export default {
           let secondsPassed = Math.ceil(((new Date()).getTime() - this.timerTotal.getStartTime()) / 1000)
           let secondsPassedInPeriod = Math.ceil(((new Date()).getTime() - this.timerPeriod.getStartTime()) / 1000)
           let secondsPassedInInterval = Math.ceil(((new Date()).getTime() - this.timerInterval.getStartTime()) / 1000)
-          // if diferred by 5 seconds
+            // if diferred by 5 seconds
           if (3600 - secondsPassed <= this.timerTotal.getRemainingSecond() - 5) {
             // reset timer status, fix issue for lock screen on ipad
             if (this.$data.bMoving) {
@@ -117,7 +117,7 @@ export default {
             }
 
             // reset timers
-            if (secondsPassed < 3600) { 
+            if (secondsPassed < 3600) {
               // 1. reset total timer
               this.timerTotal.init(3600 - secondsPassed)
                 // 2. reset period timer
@@ -127,10 +127,12 @@ export default {
                 this.timerPeriod.init(300 - secondsPassedInPeriod)
               }
               // 3. reset interval timer
-              if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
-                this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60) - this.timerInterval.getRemainingSecond()))
-              } else {
-                this.timerInterval.init(60 - secondsPassedInInterval)
+              if (this.$data.bWithinInterval) {
+                if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
+                  this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60) - this.timerInterval.getRemainingSecond()))
+                } else {
+                  this.timerInterval.init(60 - secondsPassedInInterval)
+                }
               }
             } else if (secondsPassed === 3600) {
               this.timerTotal.forceFinish()
