@@ -124,7 +124,7 @@ export default {
               // 3. reset interval timer
               if (this.$data.bWithinInterval) {
                 if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
-                  this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60)))
+                  this.timerInterval.forceFinish()
                 } else {
                   this.timerInterval.init(60 - secondsPassedInInterval)
                 }
