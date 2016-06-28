@@ -100,29 +100,24 @@ export default {
           let secondsPassedInInterval = Math.ceil(((new Date()).getTime() - this.timerInterval.getStartTime()) / 1000)
             // if diferred by 5 seconds
           if (3600 - secondsPassed <= this.timerTotal.getRemainingSecond() - 5) {
-            // reset timer status, fix issue for lock screen on ipad
-            if (this.$data.bMoving) {
-              // if baby is in moving mode, need to calculate move counters
-              // only when passed period larger then remaining sec
-              if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
-                // at least plus 1
-                this.incrementTotalCount()
-                  // maybe passed many periods
-                for (let i = 0; i < Math.floor((secondsPassedInPeriod - this.timerPeriod.getRemainingSecond()) / 300); i++) {
-                  this.incrementTotalCount()
-                }
-                // reset count in period, for reset, it always 1
-                this.$data.countInPeriod = 1
-              }
-            }
-
             // reset timers
-            if (secondsPassed < 3600) {
+            if (secondsPassed <= 3600) {
+              // reset timer status, fix issue for lock screen on ipad
               // 1. reset total timer
               this.timerTotal.init(3600 - secondsPassed)
                 // 2. reset period timer
               if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
                 this.timerPeriod.init(300 - (secondsPassedInPeriod - (Math.floor(secondsPassedInPeriod / 300) * 300) - this.timerPeriod.getRemainingSecond()))
+                if (this.$data.bMoving) {
+                  // at least plus 1
+                  this.incrementTotalCount()
+                    // maybe passed many periods
+                  for (let i = 0; i < Math.floor((secondsPassedInPeriod - this.timerPeriod.getRemainingSecond()) / 300); i++) {
+                    this.incrementTotalCount()
+                  }
+                  // reset count in period, for reset, it always 1
+                  this.$data.countInPeriod = 1
+                }
               } else {
                 this.timerPeriod.init(300 - secondsPassedInPeriod)
               }
@@ -134,8 +129,22 @@ export default {
                   this.timerInterval.init(60 - secondsPassedInInterval)
                 }
               }
-            } else if (secondsPassed === 3600) {
-              this.timerTotal.forceFinish()
+              // for 3600 force finish
+              if (secondsPassed === 3600) {
+                this.timerTotal.forceFinish()
+              }
+            } else {
+              if (this.$data.bMoving) {
+                // at least plus 1
+                this.incrementTotalCount()
+                  // maybe passed many periods
+                for (let i = 0; i < Math.floor((3600 - this.timerPeriod.getRemainingSecond()) / 300); i++) {
+                  this.incrementTotalCount()
+                }
+                // reset count in period, for reset, it always 1
+                this.$data.countInPeriod = 1
+                this.timerTotal.forceFinish()
+              }
             }
           }
         }
