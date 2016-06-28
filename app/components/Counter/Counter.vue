@@ -107,7 +107,7 @@ export default {
               this.timerTotal.init(3600 - secondsPassed)
                 // 2. reset period timer
               if (secondsPassedInPeriod > this.timerPeriod.getRemainingSecond()) {
-                this.timerPeriod.init(300 - (secondsPassedInPeriod - (Math.floor(secondsPassedInPeriod / 300) * 300) - this.timerPeriod.getRemainingSecond()))
+                this.timerPeriod.init(300 - (secondsPassedInPeriod - (Math.floor(secondsPassedInPeriod / 300) * 300)))
                 if (this.$data.bMoving) {
                   // at least plus 1
                   this.incrementTotalCount()
@@ -124,7 +124,7 @@ export default {
               // 3. reset interval timer
               if (this.$data.bWithinInterval) {
                 if (secondsPassedInInterval > this.timerInterval.getRemainingSecond()) {
-                  this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60) - this.timerInterval.getRemainingSecond()))
+                  this.timerInterval.init(60 - (secondsPassedInInterval - (Math.floor(secondsPassedInInterval / 60) * 60)))
                 } else {
                   this.timerInterval.init(60 - secondsPassedInInterval)
                 }
