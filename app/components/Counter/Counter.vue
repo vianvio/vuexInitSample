@@ -156,7 +156,7 @@ export default {
           this.$data.countInPeriod = 0
           if (this.$data.bStarted) {
             // whenever total timer is working, call next period
-            this.$data.timerPeriod.init()
+            this.$data.timerPeriod.init(300)
             if (this.$data.bMoving) {
               // if still moving, should add 1 for count
               this.incrementTotalCount()
@@ -189,13 +189,13 @@ export default {
 
       this.$data.bStarted = true
       this.$data.startTime = new Date()
-      this.$data.timerTotal.init()
+      this.$data.timerTotal.init(3600)
         // start the first period
-      this.$data.timerPeriod.init()
+      this.$data.timerPeriod.init(300)
       localStorage.setItem('startTime', this.$data.startTime.getTime())
     },
     initInterval() {
-      this.$data.timerInterval.init()
+      this.$data.timerInterval.init(60)
     },
     keepMoving() {
       this.$data.bMoving = !this.$data.bMoving;
@@ -209,7 +209,7 @@ export default {
         this.timerInterval.forceFinish()
       } else {
         // finish moving, start watching interval
-        this.timerInterval.init()
+        this.timerInterval.init(60)
         this.$data.bWithinInterval = true
       }
     },
@@ -226,10 +226,10 @@ export default {
         this.$data.countInPeriod += 1
         this.incrementTotalCount()
           // start watching interval
-        this.$data.timerInterval.init()
+        this.$data.timerInterval.init(60)
       } else {
         // within interval, if baby hits, should restart the interval
-        this.$data.timerInterval.init()
+        this.$data.timerInterval.init(60)
       }
     }
   },
