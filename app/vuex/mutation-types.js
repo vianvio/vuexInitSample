@@ -1,7 +1,1 @@
-export const INIT_STATE = 'INIT_STATE'
-export const CONTROL_MODAL = 'CONTROL_MODAL'
-export const CONTROL_LOADING = 'CONTROL_LOADING'
-
-export const SET_LOGIN_FLAG = 'SET_LOGIN_FLAG'
-
-export const INCREMENT_TOTAL_COUNT = 'INCREMENT_TOTAL_COUNT'
+export const CHANGE = 'CHANGE'

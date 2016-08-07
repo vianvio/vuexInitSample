@@ -8,12 +8,11 @@ var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 var node_modules = path.resolve(__dirname, 'node_modules');
-var PRD_BUILD_PATH = path.resolve(ROOT_PATH, '../../deploy/babyMoveCounter');
+var PRD_BUILD_PATH = path.resolve(ROOT_PATH, '../../deploy/test');
 
 module.exports = {
   // define 2 entries, one for app, one for venders
   entry: {
-    fontAwesome: "font-awesome-webpack!./font-awesome.config.js",
     app: path.resolve(APP_PATH, 'index.js'),
     vendor: ['vue', 'vue-router', 'lodash'], //['vue', 'vue-router', 'jquery', 'lodash', 'materialize-css'],
   },
@@ -29,10 +28,8 @@ module.exports = {
     inline: true,
     progress: true,
     // make api call redirect to other server
-    proxy: {
-      "/babyMoveApi/*": "http://localhost:8000",
-      // "/api-token-auth/": "http://localhost:8000",
-    }
+    // proxy: {
+    // }
   },
   devtool: 'eval-source-map',
   module: {

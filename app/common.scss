@@ -55,58 +55,6 @@ $prefix-for-spec: true !default;
   @include prefixer(transform-origin, $property, webkit moz o ms spec);
 }
 
-@mixin screen-center($selfWidth, $selfHeight, $horizontalOffset, $verticalOffset) {
-  @include vertical-center($selfHeight, $verticalOffset);
-  @include horizontal-center($selfWidth, $horizontalOffset);
-}
-
-@mixin vertical-center($selfHeight, $verticalOffset) {
-  position: relative;
-  top: 50%;
-  margin-top: -($selfHeight + $verticalOffset)/2;
-}
-
-@mixin horizontal-center($selfWith, $horizontalOffset) {
-  position: relative;
-  left: 50%;
-  margin-left: -($selfWith + $horizontalOffset)/2; // self.width/2
-}
-
-@mixin mobile-screen() {
-  @media screen and ( max-width: $res-tablet-min) {
-    @content;
-  }
-}
-
-@mixin desktop-screen() {
-  @media screen and ( min-width: $res-tablet-max) {
-    @content;
-  }
-}
-
-@mixin tablet-screen() {
-  @media screen and ( min-width: $res-tablet-min) and ( max-width: $res-tablet-max) {
-    @content;
-  }
-}
-
-@mixin modalDisplayTransition($time, $initTop, $endTop, $modal-class) {
-  .#{$modal-class}.show-modal-transition {
-    .vn-modal {
-      transition: all $time ease;
-      opacity: 1;
-      top: $endTop;
-    }
-  }
-  .#{$modal-class}.show-modal-enter,
-  .#{$modal-class}.show-modal-leave {
-    .vn-modal {
-      opacity: 0;
-      top: $initTop;
-    }
-  }
-}
-
 %material-shadow {
   @include box-shadow(0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12));
 }
@@ -115,6 +63,9 @@ $prefix-for-spec: true !default;
   padding: 0 1.5rem;
   height: 4rem;
   @include border-radius(4px);
+  &:focus {
+    outline: none;
+  }
   &:hover {
     @extend %material-shadow;
   }
